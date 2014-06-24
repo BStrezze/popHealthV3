@@ -1,0 +1,15 @@
+Code Path:
+	app->assets->javascripts->views->dashboard.js.coffee
+		View class, which is the main view to the page - the rest are effectively sub views
+		
+	app->assets->javascripts->models->category.js.coffee
+		Model class for a Category, which has a Measures collection
+		
+	app->assets->javascripts->models->measure.js.coffee
+		Model class for a Measure, which has a SubMeasures collection - also contains the definition of a SubMeasure
+		
+	app->assets->javascripts->models->query.js.coffee
+		Model class for a Query, which looks like it does the percentage calculations, etc.
+		
+	app->assets->javascripts->models->patient_result.js.coffee
+		don't understand this one yet
