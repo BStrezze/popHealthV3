@@ -44,7 +44,7 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
-  gem "bootstrap-sass"
+  gem "bootstrap-sass", '3.1.1.1'
 end
 
 group :test, :develop, :ci do

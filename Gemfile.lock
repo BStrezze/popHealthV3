@@ -83,7 +83,7 @@ GEM
     dotenv-deployment (0.0.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    execjs (2.2.0)
+    execjs (2.2.1)
     factory_girl (2.6.3)
       activesupport (>= 2.3.9)
     foreman (0.74.0)
@@ -92,7 +92,7 @@ GEM
     formtastic (2.2.1)
       actionpack (>= 3.0)
     git (1.2.7)
-    handlebars_assets (0.17)
+    handlebars_assets (0.17.1)
       execjs (>= 1.2.9)
       multi_json
       sprockets (>= 2.0.3)
@@ -196,7 +196,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rubyzip (0.9.9)
-    sass (3.3.8)
+    sass (3.3.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -241,7 +241,7 @@ GEM
       macaddr (~> 1.0)
     warden (1.2.3)
       rack (>= 1.0)
-    will_paginate (3.0.5)
+    will_paginate (3.0.6)
 
 PLATFORMS
   ruby
@@ -249,7 +249,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   apipie-rails
-  bootstrap-sass
+  bootstrap-sass (= 3.1.1.1)
   cancan
   coffee-rails
   devise

@@ -1,15 +1,135 @@
 Code Path:
 	app->assets->javascripts->views->dashboard.js.coffee
-		View class, which is the main view to the page - the rest are effectively sub views
+		This is the main view to the page - the rest are effectively sub views
 		
 	app->assets->javascripts->models->category.js.coffee
-		Model class for a Category, which has a Measures collection
+		This defines the Category class, which has a Measures collection
 		
 	app->assets->javascripts->models->measure.js.coffee
-		Model class for a Measure, which has a SubMeasures collection - also contains the definition of a SubMeasure
-		
+		This defines the Measure class, which has a SubMeasures collection. It also contains the definition of a SubMeasure
+		The SubMeasure class seems to create a Query object, which i think calls the create method in the QueryController, as that send the SubMeasure request to the Quality Measure Engine
+		The values passed are:
+			measure_id
+			sub_id (SubMeasure ID)
+			effective_date
+
 	app->assets->javascripts->models->query.js.coffee
-		Model class for a Query, which looks like it does the percentage calculations, etc.
+		This class looks to create/populate the Query object, which *I think* is sent to the QueryController.
+		It also looks like this class does the percentage calculations, etc.
+
+	<***** SPECIAL SAUCE TO SEND REQUEST FROM CLIENT TO SERVER (in other words, no idea what happens) *****>
+
+	app->controllers->api->queries_controller.rb
+		This class sends the actual requests over to the Quality Measure Engine.
+		The method used for the SubMeasure request is the "create" method. This calls the QME::QualityReport.find_or_create method.
+
+
+SubMeasure query options
+{
+	:filters=>{
+		:providers=>["53aae22cd3df6b2398002144"]
+		},
+	:effective_date=>1401642895, 
+	"prefilter"=>{
+		"birthdate"=>{
+			"$lte"=>802026895, 
+			"$gte"=>-1312267505
+			}
+		}
+	}
+
+
+This is a returned value from the QueryController->create method
+#<QME::QualityReport 
+	_id: 53a86b70d3df6be683000003
+	created_at: 2014-06-23 18:01:22 UTC
+	updated_at: 2014-06-23 18:01:22 UTC
+	nqf_id: nil
+	npi: nil
+	calculation_time: 2014-06-23 18:01:22 UTC
+	status: {
+		"state"=>"completed"
+		"log"=>[
+			"Queued at 2014-06-23 14:01:20 -0400"
+			"Starting MapReduce"
+			"MapReduce complete"
+			"Calculating group totals"
+			": p0, d0, n0, excl0, excep0"
+			]
+		}
+	measure_id: "40280381-3D61-56A7-013E-62E052273699"
+	sub_id: "a"
+	test_id: nil
+	effective_date: 1356998340
+	filters: {}
+	DENEX: 0
+	DENEXCEP: 0
+	DENOM: 0
+	IPP: 0
+	MSRPOPL: 0
+	NUMER: 0
+	antinumerator: 0
+	considered: 0
+	defaults: true,
+	execution_time: 0
+	population_ids: {
+		"IPP"=>"0717BB4E-A0CB-444F-99C8-0DA876E31CB2"
+		"DENOM"=>"F517DAE3-93DB-4DA9-8185-EEE3386AA9FD"
+		"NUMER"=>"D3F96D3D-60A1-4D13-BC09-D53B9476BDF0"
+		"DENEX"=>"47D98F94-9636-4F08-BFAC-95486531819E"
+		}
+	prefilter: {
+		"birthdate"=>{
+			"$lte"=>1136073540
+			"$gte"=>946684740
+			}
+		}
+	supplemental_data: {
+		"IPP"=>{
+			"RACE"=>{}
+			"ETHNICITY"=>{}
+			"SEX"=>{}
+			"PAYER"=>{}
+			}
+		"DENOM"=>{
+			"RACE"=>{}
+			"ETHNICITY"=>{}
+			"SEX"=>{}
+			"PAYER"=>{}
+			}
+		"NUMER"=>{
+			"RACE"=>{}
+			"ETHNICITY"=>{}
+			"SEX"=>{}
+			"PAYER"=>{}
+			}
+		"DENEX"=>{
+			"RACE"=>{}
+			"ETHNICITY"=>{}
+			"SEX"=>{}
+			"PAYER"=>{}
+			}
+		}
+	>
+
+
+
+
+
+
+
+
+	app->assets->javascripts->models->query.js.coffee
+		This class looks to create/populate the Query object, which *I think* is sent to the QueryController.
+		The values sent over are:
+			measure_id
+			sub_id (submeasure id)
+			effective_date
+		It also looks like this class does the percentage calculations, etc.
+		If I am right on how it works, the returned values are put into a PatientResults collection.
+		
+	app->controllers->api->queries_controller.rb
+		This class sends the actual requests over to the Quality Measure Engine.
 		
 	app->assets->javascripts->models->patient_result.js.coffee
 		don't understand this one yet
